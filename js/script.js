@@ -31,24 +31,55 @@ calcButton.addEventListener('click', function () {
     console.log('regular price', regularPrice);
 
     let discountedTotPrice;
+    let discountedPriceKm;
+    let offerMessage;
+
     if (userAge < 18) {
         discountedTotPrice = regularPrice * (1 - 0.20);
-        console.log('tot discounted 18', discountedTotPrice)
+        discountedPriceKm = pricePerKm * (1 - 0.20);
+        offerMessage = 'Offerta Young';
+        console.log('tot discounted 18', discountedTotPrice);
 
     } else if (userAge > 65) {
         discountedTotPrice = regularPrice * (1 - 0.40);
-        console.log('tot discounted 65', discountedTotPrice)
+        discountedPriceKm = pricePerKm * (1 - 0.40);
+        offerMessage = 'Offerta Senior';
+        console.log('tot discounted 65', discountedTotPrice);
     } else {
         document.querySelector('#calc-result').innerHTML = `Il costo del tuo biglietto è: ${regularPrice.toFixed(2)}`
-        console.log('regular price 2', regularPrice);
+        console.log('regular price else', regularPrice);
 
     }
 
-    // output
-    document.querySelector('#calc-result').innerHTML = `Il costo del tuo biglietto è: ${discountedTotPrice.toFixed(2)}`
+    // output se si verifica una delle due condizioni:
+    //nome
+    const userName = document.querySelector('#user-name').value;
+    console.log('name', userName);
+    document.querySelector('#user-name-display').innerHTML = userName;
+    // offerta
+    document.querySelector('#user-offer-display').innerHTML = offerMessage;
+    // numero carrozza  
+    const carriageNumber = Math.floor((Math.random() * 10) + 1);
+    document.querySelector('#user-carriage-display').innerHTML = carriageNumber;
 
-
+    // costo biglietto
+    document.querySelector('#calc-result').innerHTML = `${discountedTotPrice.toFixed(2)}${'€'}`;
 });
+
+// clear button 
+const clearButton = document.querySelector('#clear-btn');
+clearButton.addEventListener('click', function () {
+    document.querySelector('#user-name').value = '';
+    document.querySelector('#user-km').value = '';
+    document.querySelector('#user-age').value = '';
+    document.querySelector('#user-name-display').innerHTML = '---';
+    document.querySelector('#user-offer-display').innerHTML = '---';
+    document.querySelector('#user-carriage-display').innerHTML = '---';
+    document.querySelector('#calc-result').innerHTML = '---';
+});
+
+
+
 
 
 
